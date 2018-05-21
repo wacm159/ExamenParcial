@@ -13,13 +13,28 @@ namespace SQLiteD
 		{
 			InitializeComponent();
 
+
+            EmpleadoPicker.Items.Add("Luis Garcia");
+            EmpleadoPicker.Items.Add("Pedro Morales");
+            EmpleadoPicker.Items.Add("Carlos Gonzalez");
+            EmpleadoPicker.Items.Add("Pablo Alvarez");
+            EmpleadoPicker.Items.Add("Alfonso de Mata");
+            agregarButton.Clicked += AgregarButton_Clicked;
+            listaListView.ItemSelected += ListaListView_ItemSelected;
+		}
+
+        protected override void OnAppearing()
+        {
             using (var datos = new DataAccess())
             {
                 listaListView.ItemsSource = datos.GetEquipo();
             }
+        }
 
-            agregarButton.Clicked += AgregarButton_Clicked;
-		}
+        private async void ListaListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushAsync(new EditPage((Equipo)e.SelectedItem));
+        }
 
         private async void AgregarButton_Clicked(object sender, EventArgs e)
         {
@@ -56,6 +71,7 @@ namespace SQLiteD
             marcaEntry.Text = string.Empty;
             ModeloEntry.Text = string.Empty;
             SerieEntry.Text = string.Empty;
+            EmpleadoPicker.SelectedIndex = -1;
            await DisplayAlert("Confirmación", "Equipo agregado", "Aceptar");
         }
     }

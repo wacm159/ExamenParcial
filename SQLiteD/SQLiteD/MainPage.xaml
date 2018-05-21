@@ -18,7 +18,10 @@
                 Placeholder="Modelo" />
             <Entry x:Name="SerieEntry"
                 Placeholder="Serie"/>
-            <Button x:Name="agregarButton"
+                <Picker
+                x:Name="EmpleadoPicker"
+                Title="---Seleccione Usuario---"    />
+                <Button x:Name="agregarButton"
                 Text="Agregar"
                 BackgroundColor="Navy"
                 TextColor="White" />
